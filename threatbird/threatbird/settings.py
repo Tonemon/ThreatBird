@@ -105,6 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "web.User"
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -182,4 +184,9 @@ NOTIFICATION_STREAMS = {
     "notifications-defense": "Notifications related to defense related updates.",
 }
 
-SYSTEM_GROUP_NAMES = DEPARTMENTS | SUBSCRIPTIONS | NOTIFICATION_STREAMS
+# Creating notification stream for each of the subscriptions with their descriptions.
+for dictkey in SUBSCRIPTIONS.keys():
+    NOTIFICATION_STREAMS[f"notifications-{dictkey}"] = SUBSCRIPTIONS[dictkey]["description"]
+
+
+SYSTEM_GROUP_NAMES = DEPARTMENTS | NOTIFICATION_STREAMS

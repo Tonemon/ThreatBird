@@ -18,7 +18,7 @@
         <a href="{% url 'web:overview' %}" class="nav-link active">Dashboard</a>
       </li>
       <li class="nav-item d-none d-md-block">
-        <a href="{% url 'intel:overview' %}" class="nav-link">Attack Tracking <span class="badge bg-danger">Beta</span></a>
+        <a href="{% url 'tracking:overview' %}" class="nav-link">Attack Tracking <span class="badge bg-danger">Beta</span></a>
       </li>
       <li class="nav-item d-none d-md-block">
         <a href="{% url 'intel:overview' %}" class="nav-link">Knowledge base</a>
@@ -75,7 +75,7 @@
 
                 </h3>
                 <p class="fs-7">
-                  {{ notification.actor }}
+                  {{ notification.actor|capfirst }}
                   <span class="text-secondary">{{ notification.verb }}</span>
                   {% if notification.action_object %}
                   <span class="text-primary">{{ notification.action_object }}</span>
@@ -144,21 +144,21 @@
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
           <img src="{% static 'web/user.jpg' %}" class="user-image rounded-circle shadow" alt="User Image" />
-          <span class="d-none d-md-inline">{{ request.user }}</span>
+          <span class="d-none d-md-inline">{{ request.user|capfirst }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
           <li class="user-header text-bg-primary">
             <img src="{% static 'web/user.jpg' %}" class="rounded-circle shadow" alt="User Image" />
             <p>
-              {{ request.user }} - Web Developer
-              <small>Member since Nov. 2023</small>
+              {{ request.user|capfirst }} ({{ request.user.email}})
+              <small>Member of {{ request.user.company.name }}.</small>
             </p>
           </li>
           <li class="user-body">
             <div class="row">
-              <div class="col-4 text-center"><a href="#">Followers</a></div>
-              <div class="col-4 text-center"><a href="#">Sales</a></div>
-              <div class="col-4 text-center"><a href="#">Friends</a></div>
+              <!-- <div class="col-4 text-center"><a href="#">Followers</a></div> -->
+              <div class="col-6 text-center"><a href="#">Billing</a></div>
+              <div class="col-6 text-center"><a href="#">Subscription</a></div>
             </div>
           </li>
           <li class="user-footer">

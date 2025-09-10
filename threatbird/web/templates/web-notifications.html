@@ -95,7 +95,7 @@
 
                                             <td>
                                                 <h5>
-                                                {{ notification.verb }}
+                                                {{ notification.verb|capfirst }}
 
                                                 {% if notification.action_object %}
                                                 <span class="text-primary">{{ notification.action_object }}</span>

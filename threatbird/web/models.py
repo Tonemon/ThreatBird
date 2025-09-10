@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import UserManager, AbstractUser
 import uuid
 
 from django.conf import settings
@@ -38,14 +38,6 @@ class Company(models.Model):
         null=True,
         help_text="Description of the company.",
     )
-    group = models.ForeignKey(
-        Group,
-        on_delete=models.DO_NOTHING,
-        related_name='companygroup',
-        blank=False,
-        null=False,
-        help_text="Which Django group this company is connected to.",
-    )
     url = models.URLField(
         blank=True,
         null=True,
@@ -62,6 +54,39 @@ class Company(models.Model):
 
     def __str__(self):
         return f"Company {self.name}"
+
+
+class User(AbstractUser):
+    """
+        Upgraded version of the default `User` class.
+    """
+
+    company = models.ForeignKey(
+        Company,
+        related_name="usercompany",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        help_text="The company the user is part of.",
+    )
+    company_joined = models.DateTimeField(
+        default=timezone.now,                   # 'auto_now_add' is not editable
+        blank=True,
+        null=True,
+        help_text="The moment the user joined the company.",
+    )
+
+    objects = UserManager()
+
+    def save(self, *args, **kwargs):
+        """ Some additional settings when saving an entry of this model. """
+
+        # Set the datetime on `company_joined` when someone joined a company
+        old_company_joined = User.objects.get(pk=self.pk)
+        if old_company_joined.company != self.company and not old_company_joined.company:
+            self.company_joined = timezone.now()
+
+        super(User, self).save(*args, **kwargs)
 
 
 class Billing(models.Model):
