@@ -36,7 +36,8 @@
                                     <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
                                     <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
                                 </button>
-                                <div class="btn-group">
+
+                                <!-- <div class="btn-group">
                                     <button type="button" class="btn btn-tool dropdown-toggle" data-bs-toggle="dropdown">
                                         <i class="bi bi-wrench"></i>
                                     </button>
@@ -47,7 +48,8 @@
                                         <a class="dropdown-divider"></a>
                                         <a href="#" class="dropdown-item">Separated link</a>
                                     </div>
-                                </div>
+                                </div> -->
+
                                 <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
                                     <i class="bi bi-x-lg"></i>
                                 </button>
@@ -109,7 +111,7 @@
 
                                             <td>
                                                 {% if notification.description %}
-                                                {{ notification.description }}
+                                                {{ notification.description|safe }}
                                                 {% else %}
                                                 <i>No description.</i>
                                                 {% endif %}

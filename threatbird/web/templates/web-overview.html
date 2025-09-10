@@ -1,4 +1,5 @@
 {% include 'web-header.html' %}
+{% load static %}
 
 <main class="app-main"> <!--begin::App Content Header-->
     <div class="app-content-header"> <!--begin::Container-->
@@ -178,7 +179,7 @@
                                                 </span> <span class="direct-chat-timestamp float-end">
                                                     23 Jan 2:00 pm
                                                 </span> </div> <!-- /.direct-chat-infos --> <img class="direct-chat-img"
-                                                src="/static/user.jpg" alt="message user image">
+                                                src="{% static '/web/user.jpg' %}" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">
                                                 Is this template really for free? That's
@@ -192,7 +193,7 @@
                                                 </span> <span class="direct-chat-timestamp float-start">
                                                     23 Jan 2:05 pm
                                                 </span> </div> <!-- /.direct-chat-infos --> <img class="direct-chat-img"
-                                                src="/static/user.jpg" alt="message user image">
+                                                src="{% static '/web/user.jpg' %}" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">
                                                 You better believe it!
@@ -205,7 +206,7 @@
                                                 </span> <span class="direct-chat-timestamp float-end">
                                                     23 Jan 5:37 pm
                                                 </span> </div> <!-- /.direct-chat-infos --> <img class="direct-chat-img"
-                                                src="/static/user.jpg" alt="message user image">
+                                                src="{% static '/web/user.jpg' %}" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">
                                                 Working with AdminLTE on a great new app! Wanna
@@ -219,7 +220,7 @@
                                                 </span> <span class="direct-chat-timestamp float-start">
                                                     23 Jan 6:10 pm
                                                 </span> </div> <!-- /.direct-chat-infos --> <img class="direct-chat-img"
-                                                src="/static/user.jpg" alt="message user image">
+                                                src="{% static '/web/user.jpg' %}" alt="message user image">
                                             <!-- /.direct-chat-img -->
                                             <div class="direct-chat-text">I would love to.</div>
                                             <!-- /.direct-chat-text -->
@@ -227,7 +228,7 @@
                                     </div> <!-- /.direct-chat-messages--> <!-- Contacts are loaded here -->
                                     <div class="direct-chat-contacts">
                                         <ul class="contacts-list">
-                                            <li> <a href="#"> <img class="contacts-list-img" src="/static/user.jpg"
+                                            <li> <a href="#"> <img class="contacts-list-img" src="{% static '/web/user.jpg' %}"
                                                         alt="User Avatar">
                                                     <div class="contacts-list-info"> <span class="contacts-list-name">
                                                             Count Dracula
@@ -237,7 +238,7 @@
                                                             How have you been? I was...
                                                         </span> </div> <!-- /.contacts-list-info -->
                                                 </a> </li> <!-- End Contact Item -->
-                                            <li> <a href="#"> <img class="contacts-list-img" src="/static/user.jpg"
+                                            <li> <a href="#"> <img class="contacts-list-img" src="{% static '/web/user.jpg' %}"
                                                         alt="User Avatar">
                                                     <div class="contacts-list-info"> <span class="contacts-list-name">
                                                             Sarah Doe
@@ -247,7 +248,7 @@
                                                             I will be waiting for...
                                                         </span> </div> <!-- /.contacts-list-info -->
                                                 </a> </li> <!-- End Contact Item -->
-                                            <li> <a href="#"> <img class="contacts-list-img" src="/static/user.jpg"
+                                            <li> <a href="#"> <img class="contacts-list-img" src="{% static '/web/user.jpg' %}"
                                                         alt="User Avatar">
                                                     <div class="contacts-list-info"> <span class="contacts-list-name">
                                                             Nadia Jolie
@@ -257,7 +258,7 @@
                                                             I'll call you back at...
                                                         </span> </div> <!-- /.contacts-list-info -->
                                                 </a> </li> <!-- End Contact Item -->
-                                            <li> <a href="#"> <img class="contacts-list-img" src="/static/user.jpg"
+                                            <li> <a href="#"> <img class="contacts-list-img" src="{% static '/web/user.jpg' %}"
                                                         alt="User Avatar">
                                                     <div class="contacts-list-info"> <span class="contacts-list-name">
                                                             Nora S. Vans
@@ -267,7 +268,7 @@
                                                             Where is your new...
                                                         </span> </div> <!-- /.contacts-list-info -->
                                                 </a> </li> <!-- End Contact Item -->
-                                            <li> <a href="#"> <img class="contacts-list-img" src="/static/user.jpg"
+                                            <li> <a href="#"> <img class="contacts-list-img" src="{% static '/web/user.jpg' %}"
                                                         alt="User Avatar">
                                                     <div class="contacts-list-info"> <span class="contacts-list-name">
                                                             John K.
@@ -277,7 +278,7 @@
                                                             Can I take a look at...
                                                         </span> </div> <!-- /.contacts-list-info -->
                                                 </a> </li> <!-- End Contact Item -->
-                                            <li> <a href="#"> <img class="contacts-list-img" src="/static/user.jpg"
+                                            <li> <a href="#"> <img class="contacts-list-img" src="{% static '/web/user.jpg' %}"
                                                         alt="User Avatar">
                                                     <div class="contacts-list-info"> <span class="contacts-list-name">
                                                             Kenneth M.

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'notifications',
     'web',
     'intel',
+    'tracking',
 ]
 
 MIDDLEWARE = [
@@ -140,18 +141,45 @@ DJANGO_NOTIFICATIONS_CONFIG = {
     'SOFT_DELETE': True,
 }
 
-SYSTEM_GROUP_NAMES = {
+
+DEPARTMENTS = {
     "content management": "The department that manages new content.",
     "customer support": "The department helping customers.",
     "technical": "The department managing various systems.",
-    "customer-trial": "This customer is currently running a trial.",
-    "customer-token-based": "This customer is using prepaid tokens.",
-    "customer-subscription-small": "This customer is part of the small subscription.",
-    "customer-subscription-medium": "This customer is part of the medium subscription.",
-    "customer-subscription-large": "This customer is part of the large subscription.",
-    "customer-subscription-enterprise": "This customer is part of the enterprise subscription.",
+}
+
+SUBSCRIPTIONS = {
+    "customer-trial": {
+        "description": "This customer is currently running a trial.",
+        "default": 7,
+    },
+    "customer-token-based": {
+        "description": "This customer is using prepaid tokens.",
+        "default": 10,
+    },
+    "customer-subscription-small": {
+        "description": "This customer is part of the small subscription.",
+        "default": 200,
+    },
+    "customer-subscription-medium": {
+        "description": "This customer is part of the medium subscription.",
+        "default": 400,
+    },
+    "customer-subscription-large": {
+        "description": "This customer is part of the large subscription.",
+        "default": 600,
+    },
+    "customer-subscription-enterprise": {
+        "description": "This customer is part of the enterprise subscription.",
+        "default": 1000,
+    },
+}
+
+NOTIFICATION_STREAMS = {
     "notifications-essential": "Only the essential notifications related to your account and subscriptions.",
     "notifications-general": "General notifications related to news and the application.",
     "notifications-intel": "Notifications related to threat intel related updates.",
     "notifications-defense": "Notifications related to defense related updates.",
 }
+
+SYSTEM_GROUP_NAMES = DEPARTMENTS | SUBSCRIPTIONS | NOTIFICATION_STREAMS

@@ -7,5 +7,5 @@ app_name = "intel"
 urlpatterns = [
     path('', lambda request: redirect('overview', permanent=True)),
 
-    path('overview', views.overview, name='overview'),
+    path('home', views.overview, name='overview'),
 ]
