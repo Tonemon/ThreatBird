@@ -22,9 +22,10 @@ from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', lambda request: redirect('v1/', permanent=True)),
+    path('', lambda request: redirect('console/', permanent=True), name="rootredirect"),
 
-    path('v1/', include("web.urls"), name="web"),
+    path('console/', include("web.urls"), name="web"),
+    path('intel/', include("intel.urls"), name="kb"),
     path('account/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

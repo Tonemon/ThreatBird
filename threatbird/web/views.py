@@ -7,13 +7,36 @@ from django.urls import reverse, reverse_lazy
 
 # Views
 @login_required(login_url=reverse_lazy('login'))
-def overview(request: HttpRequest):
+def web_overview(request: HttpRequest):
     """ Overview page. """
 
     variables = {
         'page': "Overview",
     }
 
-    template = loader.get_template('overview.html')
+    template = loader.get_template('web-overview.html')
     return HttpResponse(template.render(variables, request))
 
+
+@login_required(login_url=reverse_lazy('login'))
+def web_notifications(request: HttpRequest):
+    """ Notifications page. """
+
+    variables = {
+        'page': "Notifications",
+    }
+
+    template = loader.get_template('web-overview.html')
+    return HttpResponse(template.render(variables, request))
+
+
+# Other views
+def example(request: HttpRequest):
+    """ example page. """
+
+    variables = {
+        'page': "Example page",
+    }
+
+    template = loader.get_template('example.html')
+    return HttpResponse(template.render(variables, request))
