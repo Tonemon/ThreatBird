@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-z92bjk!zzz%3u9sof^4st2^*kb4grea63_*l!%wa8aopwi4$fm
 DEBUG = True
 
 ALLOWED_HOSTS = ["threatbird.lan"]
-
+if DEBUG:
+    ALLOWED_HOSTS.append("localhost")
 
 # Application definition
 
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'web',
+    'mitre',
 ]
 
 MIDDLEWARE = [
@@ -51,10 +54,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'threatbird.urls'
 
+TEMPLATES_DIR = [ BASE_DIR / 'templates' ]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': TEMPLATES_DIR,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,13 +103,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Amsterdam'
 
 USE_I18N = True
 
@@ -116,6 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [ BASE_DIR / "static" ]
+STATIC_ROOT = 'static_root'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

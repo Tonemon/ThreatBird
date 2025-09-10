@@ -1,10 +1,19 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.template import loader
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required, permission_required
+from django.urls import reverse, reverse_lazy
 
 
-# Create your views here.
+# Views
+@login_required(login_url=reverse_lazy('login'))
+def overview(request: HttpRequest):
+    """ Overview page. """
 
+    variables = {
+        'page': "Overview",
+    }
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the web app index.")
+    template = loader.get_template('overview.html')
+    return HttpResponse(template.render(variables, request))
 
