@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('detection', models.TextField(blank=True, help_text='Technique detection information.', null=True)),
                 ('permissions_required', models.TextField(blank=True, help_text='Permissions required for this technique, comma separated.', null=True)),
                 ('platforms', models.TextField(blank=True, help_text='Technique platforms, comma separated.', null=True)),
-                ('subtechniques', models.ManyToManyField(blank=True, help_text='Selection of techniques connected to this tactic.', to='mitre.technique')),
+                ('subtechniques', models.ManyToManyField(blank=True, help_text='Selection of techniques connected to this tactic.', to='knowledgebase.technique')),
             ],
             options={
                 'verbose_name': 'Technique',
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, help_text='A name for the tactic.', max_length=30, null=True, unique=True)),
                 ('description', models.TextField(blank=True, help_text='Description of the tactic.', null=True)),
                 ('url', models.TextField(blank=True, help_text='Tactic URL, comma separated.', null=True)),
-                ('techniques', models.ManyToManyField(blank=True, help_text='Selection of techniques connected to this tactic.', related_name='tactictechnique', to='mitre.technique')),
+                ('techniques', models.ManyToManyField(blank=True, help_text='Selection of techniques connected to this tactic.', related_name='tactictechnique', to='knowledgebase.technique')),
             ],
             options={
                 'verbose_name': 'Tactic',
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, help_text='A name for the game.', max_length=30, null=True, unique=True)),
                 ('description', models.TextField(blank=True, help_text='Description of the group.', null=True)),
                 ('aliases', models.TextField(blank=True, help_text='Group aliases, comma separated.', null=True)),
-                ('techniques', models.ManyToManyField(blank=True, help_text='Selection of techniques used by this group.', related_name='grouptechnique', to='mitre.technique')),
+                ('techniques', models.ManyToManyField(blank=True, help_text='Selection of techniques used by this group.', related_name='grouptechnique', to='knowledgebase.technique')),
             ],
             options={
                 'verbose_name': 'Group',

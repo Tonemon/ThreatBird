@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MitreConfig(AppConfig):
+class KnowledgebaseConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mitre'
+    name = 'knowledgebase'
