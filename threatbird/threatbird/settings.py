@@ -137,20 +137,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Additional variables
 DJANGO_NOTIFICATIONS_CONFIG = {
     'USE_JSONFIELD': True,
+    'SOFT_DELETE': True,
 }
 
-SYSTEM_GROUP_NAMES = [
-    "content management",
-    "customer support",
-    "technical",
-    "customer-trial",
-    "customer-token-based",
-    "customer-subscription-small",
-    "customer-subscription-medium",
-    "customer-subscription-large",
-    "customer-subscription-enterprise",
-    "notifications-essential",
-    "notifications-general",
-    "notifications-intel",
-    "notifications-defense",
-]
+SYSTEM_GROUP_NAMES = {
+    "content management": "The department that manages new content.",
+    "customer support": "The department helping customers.",
+    "technical": "The department managing various systems.",
+    "customer-trial": "This customer is currently running a trial.",
+    "customer-token-based": "This customer is using prepaid tokens.",
+    "customer-subscription-small": "This customer is part of the small subscription.",
+    "customer-subscription-medium": "This customer is part of the medium subscription.",
+    "customer-subscription-large": "This customer is part of the large subscription.",
+    "customer-subscription-enterprise": "This customer is part of the enterprise subscription.",
+    "notifications-essential": "Only the essential notifications related to your account and subscriptions.",
+    "notifications-general": "General notifications related to news and the application.",
+    "notifications-intel": "Notifications related to threat intel related updates.",
+    "notifications-defense": "Notifications related to defense related updates.",
+}

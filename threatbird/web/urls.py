@@ -8,6 +8,6 @@ urlpatterns = [
     path('', lambda request: redirect('overview', permanent=True), name="webredirect"),
 
     path('overview', views.overview, name='overview'),
-    path('notifications', views.web_notifications, name='notifications'),
+    path('notifications', views.notifications, name='notifications'),
     path('example', views.example, name='example'),
 ]

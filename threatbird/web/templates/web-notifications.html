@@ -1,0 +1,190 @@
+{% include 'web-header.html' %}
+
+<main class="app-main">
+    <div class="app-content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="mb-0">Notifications</h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-end">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'web:overview' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Notifications
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                All notifications
+                                <span class="badge bg-danger">{{ user.notifications.unread|length }}</span>
+                            </h5>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                                    <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                                    <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                                </button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-tool dropdown-toggle" data-bs-toggle="dropdown">
+                                        <i class="bi bi-wrench"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" role="menu">
+                                        <a href="#" class="dropdown-item">Action</a>
+                                        <a href="#" class="dropdown-item">Another action</a>
+                                        <a href="#" class="dropdown-item"> Something else here </a>
+                                        <a class="dropdown-divider"></a>
+                                        <a href="#" class="dropdown-item">Separated link</a>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <input type="checkbox" name="selectall" />
+                                                <label for="selectall">Select all</label>
+                                            </th>
+                                            <th></th>
+                                            <th>Notification</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for notification in allnotifications %}
+                                        <tr>
+                                            <td><input type="checkbox" /></td>
+
+                                            <td>
+                                                {% if notification.unread %}
+                                                <i class="bi bi-envelope-fill" title="Unread notification"></i>
+
+                                                <button type="button" class="btn btn-tool me-2" title="Mark notification as read">
+                                                    <i class="bi bi-check-lg"></i>
+                                                </button>
+
+                                                {% else %}
+                                                <!-- <i class="bi bi-envelope me-2" title="Read notification"></i> -->
+
+                                                <button type="button" class="btn btn-tool me-2" title="Mark notification as unread">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                                {% endif %}
+                                            </td>
+
+                                            <td>
+                                                <h5>
+                                                {{ notification.verb }}
+
+                                                {% if notification.action_object %}
+                                                <span class="text-primary">{{ notification.action_object }}</span>
+                                                {% endif %}
+
+                                                {% if notification.target %}
+                                                    of <span class="text-success">{{ notification.target }}</span>
+                                                {% endif %}
+                                                </h5>
+
+                                                <p>From: <span class="text-secondary">{{ notification.actor }}</span></p>
+                                            </td>
+
+                                            <td>
+                                                {% if notification.description %}
+                                                {{ notification.description }}
+                                                {% else %}
+                                                <i>No description.</i>
+                                                {% endif %}
+                                            </td>
+
+                                            <td>
+                                                {{ notification.timesince }}
+
+                                                {% if notification.data.stream == "essential" %}
+                                                <span class="float-end fs-7 text-danger" title="Essential notification">
+                                                    {{ notification.data.stream }}
+                                                    <i class="bi bi-star-fill"></i>
+                                                </span>
+
+                                                {% elif notification.data.stream == "general" %}
+                                                <span class="float-end fs-7 text-danger" title="General notification">
+                                                    {{ notification.data.stream }}
+                                                    <i class="nav-icon bi bi-speedometer"></i>
+                                                </span>
+
+                                                {% elif notification.data.stream == "intel" %}
+                                                <span class="float-end fs-7 text-danger"
+                                                    title="Intel related notification">
+                                                    {{ notification.data.stream }}
+                                                    <i class="bi bi-box-seam-fill"></i>
+                                                </span>
+
+                                                {% elif notification.data.stream == "defense" %}
+                                                <span class="float-end fs-7 text-danger"
+                                                    title="Defense related notification">
+                                                    {{ notification.data.stream }}
+                                                    <i class="bi bi-box-seam-fill"></i>
+                                                </span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer clearfix">
+                            <span class="float-start">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-primary">
+                                    Mark selected read
+                                </a>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary">
+                                    Mark selected unread
+                                </a>
+                            </span>
+                            
+                            <span class="float-end">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-danger">
+                                    Delete selected
+                                </a>
+                            </span>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!--end::Row-->
+
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::App Content-->
+</main>
+<!--end::App Main-->
+<!--begin::Footer-->
+
+{% include 'web-footer.html' %}
