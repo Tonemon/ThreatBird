@@ -26,6 +26,8 @@ urlpatterns = [
 
     path('console/', include("web.urls"), name="web"),
     path('intel/', include("intel.urls"), name="kb"),
+    path('tracking/', include("tracking.urls"), name="tr"),
+
     path('account/', include('django.contrib.auth.urls')),
     path('inbox/notifications/', include('notifications.urls', namespace='notifications')),
 ] # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
