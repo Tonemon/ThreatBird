@@ -3,8 +3,9 @@ from django.shortcuts import redirect
 
 from . import views
 
+app_name = "intel"
 urlpatterns = [
     path('', lambda request: redirect('overview', permanent=True)),
 
-    path('overview', views.kb_overview, name='kb_overview'),
+    path('overview', views.overview, name='overview'),
 ]

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Technique, Tactic, Group
+from .models import Technique, Tactic, APTGroup
 
 # Register your models here.
 @admin.register(Technique)
@@ -15,7 +15,7 @@ class TacticAdmin(admin.ModelAdmin):
     ordering = ("-id",)
 
 
-@admin.register(Group)
+@admin.register(APTGroup)
 class GroupAdmin(admin.ModelAdmin):
     list_display = ("id", "created_at", "inserted", "name", "aliases",)
     ordering = ("-id",)

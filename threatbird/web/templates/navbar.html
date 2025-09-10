@@ -1,3 +1,10 @@
+{% load notifications_tags %}
+{% load static %}
+
+<script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
+
+
 <nav class="app-header navbar navbar-expand bg-body">
   <!--begin::Container-->
   <div class="container-fluid">
@@ -8,84 +15,97 @@
         </a>
       </li>
       <li class="nav-item d-none d-md-block">
-        <a href="{% url 'web_overview' %}" class="nav-link active">Dashboard</a>
+        <a href="{% url 'web:overview' %}" class="nav-link active">Dashboard</a>
       </li>
       <li class="nav-item d-none d-md-block">
-        <a href="{% url 'kb_overview' %}" class="nav-link">Knowledge base</a>
+        <a href="{% url 'intel:overview' %}" class="nav-link">Attack Tracking <span class="badge bg-danger">Beta</span></a>
+      </li>
+      <li class="nav-item d-none d-md-block">
+        <a href="{% url 'intel:overview' %}" class="nav-link">Knowledge base</a>
       </li>
     </ul>
-
+  
     <ul class="navbar-nav ms-auto">
-      <!--begin::Navbar Search-->
       <!-- <li class="nav-item"> <a class="nav-link" data-widget="navbar-search" href="#" role="button"> <i
                         class="bi bi-search"></i> </a> </li> -->
-      <!--begin::Messages Dropdown Menu-->
-
-      <!-- <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i
-                        class="bi bi-chat-text"></i> <span class="navbar-badge badge text-bg-danger">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0"> <img src="/static/user.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3"> </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                                </h3>
-                                <p class="fs-7">Call me whenever you can...</p>
-                                <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours
-                                    Ago
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider"></div> <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0"> <img src="/static/user.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3"> </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-end fs-7 text-secondary"> <i class="bi bi-star-fill"></i>
-                                    </span>
-                                </h3>
-                                <p class="fs-7">I got your message bro</p>
-                                <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours
-                                    Ago
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider"></div> <a href="#" class="dropdown-item">
-                        <div class="d-flex">
-                            <div class="flex-shrink-0"> <img src="/static/user.jpg" alt="User Avatar"
-                                    class="img-size-50 rounded-circle me-3"> </div>
-                            <div class="flex-grow-1">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-end fs-7 text-warning"> <i class="bi bi-star-fill"></i>
-                                    </span>
-                                </h3>
-                                <p class="fs-7">The subject goes here</p>
-                                <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours
-                                    Ago
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See
-                        All Messages</a>
-                </div>
-            </li> -->
 
       <li class="nav-item dropdown">
         <a class="nav-link" data-bs-toggle="dropdown" href="#">
           <i class="bi bi-bell-fill"></i>
-          <span class="navbar-badge badge text-bg-danger">15</span>
+          <!-- <span class="navbar-badge badge text-bg-danger">3</span> -->
+          {% live_notify_badge badge_class="navbar-badge badge text-bg-danger" %}
+        </a>
+        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end">
+          <span class="dropdown-item dropdown-header">{% live_notify_badge %} Notification(s)</span>
+          <div class="dropdown-divider"></div>
+
+          {% for notification in user.notifications.unread %}
+
+          <span class="dropdown-item">
+            <div class="d-flex">
+              <!-- <div class="flex-shrink-0"> <img src="{% static 'web/user.jpg' %}" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div> -->
+              <div class="flex-grow-1">
+                <h3 class="dropdown-item-title">
+                  <!-- {{ notification.actor }} -->
+                  <!-- <a href="{% url 'notifications:mark_as_read' notification.slug %}">mark as read</a> -->
+
+                  {% if notification.data.stream == "essential" %}
+                  <span class="float-end fs-7 text-danger" title="Essential notification">
+                    {{ notification.data.stream }}
+                    <i class="bi bi-star-fill"></i>
+                  </span>
+
+                  {% elif notification.data.stream == "general" %}
+                  <span class="float-end fs-7 text-danger" title="General notification">
+                    {{ notification.data.stream }}
+                    <i class="nav-icon bi bi-speedometer"></i>
+                  </span>
+
+                  {% elif notification.data.stream == "intel" %}
+                  <span class="float-end fs-7 text-danger" title="Intel related notification">
+                      {{ notification.data.stream }}
+                      <i class="bi bi-box-seam-fill"></i>
+                  </span>
+
+                  {% elif notification.data.stream == "defense" %}
+                  <span class="float-end fs-7 text-danger" title="Defense related notification">
+                    {{ notification.data.stream }}
+                    <i class="bi bi-box-seam-fill"></i>
+                  </span>
+                  {% endif %}
+
+                </h3>
+                <p class="fs-7">
+                  {{ notification.actor }}
+                  <span class="text-secondary">{{ notification.verb }}</span>
+                  {% if notification.action_object %}
+                  <span class="text-primary">{{ notification.action_object }}</span>
+                  {% endif %}
+                  {% if notification.target %}
+                    of <span class="text-success">{{ notification.target }}</span>
+                  {% endif %}
+                </p>
+                <p class="fs-7 text-secondary">
+                  <i class="bi bi-clock-fill me-1"></i> {{ notification.timesince }} ago
+                </p>
+              </div>
+            </div>
+          </span>
+
+          <div class="dropdown-divider"></div>
+          {% endfor %}
+
+          <a href="{% url 'web:notifications' %}" class="dropdown-item dropdown-footer">See all notifications</a>
+        </div>
+      </li>
+
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link" data-bs-toggle="dropdown" href="#">
+          <i class="bi bi-chat-text"></i>
+          {% live_notify_badge badge_class="navbar-badge badge text-bg-danger" %}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">{% live_notify_badge %} Notifications</span>
           <div class="dropdown-divider"></div>
 
           <a href="#" class="dropdown-item">
@@ -109,62 +129,39 @@
 
           <div class="dropdown-divider"></div>
 
-          <a href="{% url 'notifications' %}" class="dropdown-item dropdown-footer">
+          <a href="{% url 'web:notifications' %}" class="dropdown-item dropdown-footer">
             See All Notifications
           </a>
         </div>
-      </li>
-      <!--end::Notifications Dropdown Menu-->
-      <!--begin::Fullscreen Toggle-->
+      </li> -->
 
       <li class="nav-item">
         <a class="nav-link" href="#" data-lte-toggle="fullscreen">
           <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
-          <i
-            data-lte-icon="minimize"
-            class="bi bi-fullscreen-exit"
-            style="display: none"
-          ></i>
+          <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none"></i>
         </a>
       </li>
-      <!--end::Fullscreen Toggle-->
-      <!--begin::User Menu Dropdown-->
 
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-          <img
-            src="/static/user.jpg"
-            class="user-image rounded-circle shadow"
-            alt="User Image"
-          />
+          <img src="{% static 'web/user.jpg' %}" class="user-image rounded-circle shadow" alt="User Image" />
           <span class="d-none d-md-inline">{{ request.user }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-          <!--begin::User Image-->
           <li class="user-header text-bg-primary">
-            <img
-              src="/static/user.jpg"
-              class="rounded-circle shadow"
-              alt="User Image"
-            />
+            <img src="{% static 'web/user.jpg' %}" class="rounded-circle shadow" alt="User Image" />
             <p>
               {{ request.user }} - Web Developer
               <small>Member since Nov. 2023</small>
             </p>
           </li>
-          <!--end::User Image-->
-          <!--begin::Menu Body-->
           <li class="user-body">
-            <!--begin::Row-->
             <div class="row">
               <div class="col-4 text-center"><a href="#">Followers</a></div>
               <div class="col-4 text-center"><a href="#">Sales</a></div>
               <div class="col-4 text-center"><a href="#">Friends</a></div>
             </div>
-            <!--end::Row-->
           </li>
-          <!--end::Menu Body-->
-          <!--begin::Menu Footer-->
           <li class="user-footer">
             <!-- <a href="#" class="btn btn-default btn-flat float-end">Sign out</a> -->
             <form method="POST" action="{% url 'logout' %}">
@@ -175,14 +172,8 @@
               </button>
             </form>
           </li>
-          <!--end::Menu Footer-->
         </ul>
       </li>
-      <!--end::User Menu Dropdown-->
     </ul>
-    <!--end::End Navbar Links-->
   </div>
-  <!--end::Container-->
 </nav>
-<!--end::Header-->
-<!--begin::Sidebar-->

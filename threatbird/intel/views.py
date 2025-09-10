@@ -7,7 +7,7 @@ from django.urls import reverse, reverse_lazy
 
 # Views
 @login_required(login_url=reverse_lazy('login'))
-def kb_overview(request: HttpRequest):
+def overview(request: HttpRequest):
     """ Overview page. """
 
     variables = {

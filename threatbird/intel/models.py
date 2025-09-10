@@ -139,7 +139,7 @@ class Tactic(models.Model):
         return f"Tactic {self.name}"
 
 
-class Group(models.Model):
+class APTGroup(models.Model):
     """ A MITRE APT Groupo. Groups are activity clusters that are tracked by a common name in the security community and terms such as threat groups, activity groups, and threat actors are being used. """
 
     id = models.CharField(
@@ -184,8 +184,8 @@ class Group(models.Model):
     )
 
     class Meta:
-        verbose_name = "Group"
-        verbose_name_plural = "Groups"
+        verbose_name = "APT Group"
+        verbose_name_plural = "APT Groups"
 
     def __str__(self):
         return f"Group {self.name}"

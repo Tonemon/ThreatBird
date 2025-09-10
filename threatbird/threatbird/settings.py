@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'notifications',
     'web',
     'intel',
 ]
@@ -131,3 +132,25 @@ STATIC_ROOT = 'static_root'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Additional variables
+DJANGO_NOTIFICATIONS_CONFIG = {
+    'USE_JSONFIELD': True,
+}
+
+SYSTEM_GROUP_NAMES = [
+    "content management",
+    "customer support",
+    "technical",
+    "customer-trial",
+    "customer-token-based",
+    "customer-subscription-small",
+    "customer-subscription-medium",
+    "customer-subscription-large",
+    "customer-subscription-enterprise",
+    "notifications-essential",
+    "notifications-general",
+    "notifications-intel",
+    "notifications-defense",
+]
